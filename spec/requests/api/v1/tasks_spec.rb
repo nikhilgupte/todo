@@ -39,7 +39,7 @@ RSpec.describe Task, type: :request do
             "type" => "undefined",
             "id" => "undefined",
             "attributes" => {
-              "title" => "Laundry"
+              "title" => "Do Homework"
             }
           }
         }.to_json
@@ -51,7 +51,12 @@ RSpec.describe Task, type: :request do
       end
       it "creates the task" do
         expect { subject }.to change { Task.count }.by(1)
-        expect(Task.last.title).to eq('Laundry')
+        expect(Task.last.title).to eq('Do Homework')
+      end
+      it 'returns the created task' do
+        subject
+        expect(response.body)
+          .to be_json_eql({ "data" => { "type" => "tasks", "attributes" => { "title" => "Do Homework" }, "relationships" => { "tags" => { "data" => [] } } } }.to_json)
       end
     end
 
@@ -95,7 +100,7 @@ RSpec.describe Task, type: :request do
             "type" => "tasks",
             "id" => task.id.to_s,
             "attributes" => {
-              "title" => "Updated",
+              "title" => "Updated Task Title",
               "tags" => new_tag_names
             }
           }
@@ -108,8 +113,13 @@ RSpec.describe Task, type: :request do
       end
       it "updates the task" do
         subject
-        expect(task.reload.title).to eq('Updated')
+        expect(task.reload.title).to eq('Updated Task Title')
         expect(task.reload.tags.pluck(:title)).to include(*new_tag_names)
+      end
+      it 'returns the updated task' do
+        subject
+        expect(response.body)
+          .to be_json_eql({ "data" => { "type" => "tasks", "attributes" => { "title" => "Updated Task Title" }, "relationships" => { "tags" => { "data" => [{ "type" => "tags" }, { "type" => "tags" }] } } } }.to_json)
       end
     end
 

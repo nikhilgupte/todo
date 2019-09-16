@@ -45,6 +45,11 @@ RSpec.describe Tag, type: :request do
         expect { subject }.to change { Tag.count }.by(1)
         expect(Tag.last.title).to eq('Someday')
       end
+      it 'returns the created tag' do
+        subject
+        expect(response.body)
+          .to be_json_eql({ "data" => { "type" => "tags", "attributes" => { "title" => "Someday" } } }.to_json)
+      end
     end
 
     context "with invalid data" do
@@ -82,7 +87,7 @@ RSpec.describe Tag, type: :request do
             "type" => "tags",
             "id" => tag.id.to_s,
             "attributes" => {
-              "title" => "Updated"
+              "title" => "Updated Tag Title"
             }
           }
         }.to_json
@@ -94,7 +99,12 @@ RSpec.describe Tag, type: :request do
       end
       it "updates the tag" do
         subject
-        expect(tag.reload.title).to eq('Updated')
+        expect(tag.reload.title).to eq('Updated Tag Title')
+      end
+      it 'returns the updated tag' do
+        subject
+        expect(response.body)
+          .to be_json_eql({ "data" => { "type" => "tags", "attributes" => { "title" => "Updated Tag Title" } } }.to_json)
       end
     end
 
