@@ -7,8 +7,9 @@ class Task < ApplicationRecord
   end
 
   def tag_names=(tag_names)
+    tags.clear
     tag_names.each do |tag_name|
-      tags << Tag.find_or_create_by(title: tag_name) unless tags.pluck(:title).include?(tag_name)
+      tags << Tag.find_or_create_by(title: tag_name)
     end
   end
 end

@@ -22,6 +22,11 @@ class Api::V1::TasksController < ApplicationController
     end
   end
 
+  def destroy
+    Task.destroy(params[:id])
+    head :ok
+  end
+
   private
 
   def create_params
