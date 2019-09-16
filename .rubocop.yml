@@ -1,0 +1,22 @@
+AllCops:
+  TargetRubyVersion: 2.4.1
+  Exclude:
+    - 'db/**/*'
+    - 'spec/**/*_helper.rb'
+    - 'Gemfile'
+    - 'bin/*'
+
+Documentation:
+  Enabled: false
+
+Metrics/LineLength:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: False
+
+Style/StringLiterals:
+  Enabled: false
+
+Style/DoubleNegation:
+  Enabled: false
