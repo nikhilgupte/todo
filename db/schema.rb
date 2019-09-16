@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 2019_09_16_011320) do
   create_table "tags_tasks", id: false, force: :cascade do |t|
     t.integer "task_id", null: false
     t.integer "tag_id", null: false
-    t.index ["tag_id", "task_id"], name: "index_tags_tasks_on_tag_id_and_task_id"
+    t.index ["tag_id"], name: "index_tags_tasks_on_tag_id"
     t.index ["task_id", "tag_id"], name: "index_tags_tasks_on_task_id_and_tag_id", unique: true
   end
 
