@@ -12,6 +12,10 @@ Documentation:
 Metrics/LineLength:
   Enabled: false
 
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+
 Style/FrozenStringLiteralComment:
   Enabled: False
 
